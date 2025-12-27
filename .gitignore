@@ -10,6 +10,23 @@
 /node_modules
 npm-debug.log
 yarn-error.log
+/package-lock.json
+
+# Angular specific
+/dist/
+/out-tsc/
+/tmp/
+/coverage/
+/e2e/test-output/
+/.angular/
+.angular/
+
+# Environment files
+/.env
+
+# Angular CLI and build artefacts
+/.angular-cli.json
+/.ng/
 
 # IDEs and editors
 .idea/
