@@ -1,0 +1,144 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <!-- Header with back button and add comment -->
+  <div class="flex items-center justify-between mb-6">
+    <button 
+      (click)="goBack()" 
+      class="flex items-center gap-2 px-4 py-2 hover:bg-blue-300  rounded transition-colors">
+      <lucide-angular [img]="backIcon" class="w-5 h-5"></lucide-angular>
+      <span>Back to Feed</span>
+    </button>
+    <button 
+      (click)="onAddComment()" 
+      class="flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded hover:bg-blue-600 transition-colors">
+      <lucide-angular [img]="addIcon" class="w-5 h-5"></lucide-angular>
+      <span>Add Comment</span>
+    </button>
+  </div>
+
+  <h2 class="text-3xl font-bold mb-6">Comments</h2>
+
+  <!-- Add/Edit Comment Form -->
+  @if (showForm()) {
+    <section class="w-full mb-6" hlmCard>
+      <div hlmCardHeader>
+        <h3 hlmCardTitle>{{ editingComment() ? 'Edit Comment' : 'Add New Comment' }}</h3>
+      </div>
+      <div hlmCardContent>
+        @if (operationError()) {
+          <p class="text-red-500 mb-4">{{operationError()}}</p>
+        }
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Name</label>
+            <input 
+              type="text" 
+              formControlName="name" 
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="Your name">
+            @if (form.get('name')?.invalid && form.get('name')?.touched) {
+              <p class="text-red-500 text-sm mt-1">Name is required</p>
+            }
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Email</label>
+            <input 
+              type="email" 
+              formControlName="email" 
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="your.email@example.com">
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+              <p class="text-red-500 text-sm mt-1">Valid email is required</p>
+            }
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Comment</label>
+            <textarea 
+              formControlName="body" 
+              class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+              rows="4"
+              placeholder="Write your comment here..."></textarea>
+            @if (form.get('body')?.invalid && form.get('body')?.touched) {
+              <p class="text-red-500 text-sm mt-1">Comment is required</p>
+            }
+          </div>
+          <div class="flex gap-2">
+            <button 
+              type="submit" 
+              [disabled]="isSubmitting() || form.invalid" 
+              class="px-4 py-2 bg-blue-400 text-white rounded hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              {{ isSubmitting() ? 'Saving...' : 'Save' }}
+            </button>
+            <button 
+              type="button" 
+              (click)="cancelForm()" 
+              [disabled]="isSubmitting()"
+              class="px-4 py-2 bg-red-400  rounded hover:bg-red-500 disabled:opacity-50 transition-colors">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  }
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="text-center py-8">
+      <p class="text-gray-500">Loading comments...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error() && !isLoading()) {
+    <div class="text-center py-8">
+      <p class="text-red-500 mb-4">{{error()}}</p>
+      <button 
+        (click)="loadComments(postId()!)" 
+        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+        Retry
+      </button>
+    </div>
+  }
+
+  <!-- Comments List -->
+   @if (!showForm())
+  {
+    @if (!isLoading() && !error()) {
+    @if (comments().length === 0) {
+      <div class="text-center py-8">
+        <p class="text-gray-500">No comments yet.</p>
+      </div>
+    } @else {
+      <div class="space-y-4">
+        @for (comment of comments(); track comment.id) {
+          <section class="w-full" hlmCard>
+            <div hlmCardHeader class="flex items-start justify-between">
+              <div class="flex-1">
+                <h3 hlmCardTitle class="text-lg">{{comment.name}}</h3>
+                <p class="text-sm text-gray-500 mt-1">{{comment.email}}</p>
+              </div>
+              <div class="flex gap-2 ml-4">
+                <button 
+                  class="p-1 hover:bg-blue-300  rounded transition-colors shrink-0" 
+                  aria-label="Edit comment"
+                  (click)="onEditComment(comment); $event.stopPropagation()">
+                  <lucide-angular [img]="editIcon" class="w-4 h-4"></lucide-angular>
+                </button>
+                <button 
+                  class="p-1 hover:bg-blue-300  rounded transition-colors shrink-0 text-red-600" 
+                  aria-label="Delete comment"
+                  (click)="onDeleteComment(comment.id); $event.stopPropagation()">
+                  <lucide-angular [img]="deleteIcon" class="w-4 h-4"></lucide-angular>
+                </button>
+              </div>
+            </div>
+            <div hlmCardContent>
+              <p class="text-base leading-relaxed">{{comment.body}}</p>
+            </div>
+          </section>
+        }
+      </div>
+    }
+  }
+}
+</div>

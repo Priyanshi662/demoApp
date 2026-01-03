@@ -1,0 +1,71 @@
+@if (operationError()) {
+  <div class="text-center mb-4">
+    <p class="text-red-500">{{operationError()}}</p>
+  </div>
+}
+
+<div class="posts-container">
+  
+  @if(!showForm())
+ { 
+  <div class="flex max-w-3xs mx-auto px-4 mb-8 justify-center hover:bg-blue-300 rounded transition-colors">
+  <div hlmCardFooter>
+    <button class="p-1" aria-label="Add" (click)="onAdd()">
+      <lucide-angular [img]="addIcon" class="w-5 h-5"></lucide-angular>
+    </button>
+  </div>
+</div>
+  
+  @if (isLoading()) {
+    <div class="text-center mb-8">
+      <p>Loading posts...</p>
+    </div>
+  } @else if (error()) {
+    <div class="text-center mb-8">
+      <p class="text-red-500">{{error()}}</p>
+      <button (click)="loadPosts()" class="px-4 py-2 bg-blue-500 text-white rounded">Retry</button>
+    </div>
+  } @else {
+    @for (post of posts(); track post.id) {
+      <app-post
+        [post]="post"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+        (comments)="onComments($event)">
+      </app-post>
+    }
+  }
+}
+</div>
+
+@if (showForm()) {
+  <div class="max-w-xl mx-auto px-4 mb-8">
+    <section class="w-full" hlmCard>
+      <div hlmCardHeader>
+        <h3 hlmCardTitle>{{ editingPost() ? 'Edit Post' : 'Add New Post' }}</h3>
+      </div>
+      <div hlmCardContent>
+        @if (operationError()) {
+          <p class="text-red-500 mb-4">{{operationError()}}</p>
+        }
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Title</label>
+            <input type="text" formControlName="title" class="w-full p-2 border rounded">
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Body</label>
+            <textarea formControlName="body" class="w-full p-2 border rounded" rows="4"></textarea>
+          </div>
+          <div class="flex gap-2">
+            <button type="submit" [disabled]="isSubmitting()" class="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50">
+              {{ isSubmitting() ? 'Saving...' : 'Save' }}
+            </button>
+            <button type="button" (click)="cancelForm()" class="px-4 py-2 bg-gray-500 text-white rounded">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+}
+
