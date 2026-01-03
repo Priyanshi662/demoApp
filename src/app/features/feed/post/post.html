@@ -6,10 +6,10 @@
           <h3 hlmCardTitle class="text-2xl">{{post()?.title}}</h3>
         </div>
         <div class="flex gap-2 ml-4">
-          <button class="p-1 hover:bg-blue-300  rounded transition-colors shrink-0" aria-label="Edit" (click)="edit.emit(post()!); $event.stopPropagation()">
+          <button class="p-1 hover:bg-blue-50  rounded transition-colors shrink-0 cursor-pointer" aria-label="Edit" (click)="edit.emit(post()!); $event.stopPropagation()">
             <lucide-angular [img]="editIcon" class="w-5 h-5"></lucide-angular>
           </button>
-          <button class="p-1 hover:bg-blue-300  rounded transition-colors shrink-0" aria-label="Delete" (click)="delete.emit(post()!.id); $event.stopPropagation()">
+          <button class="p-1 hover:bg-red-300  rounded transition-colors shrink-0 cursor-pointer" aria-label="Delete" (click)="delete.emit(post()!.id); $event.stopPropagation()">
             <lucide-angular [img]="cross" class="w-5 h-5"></lucide-angular>
           </button>
         </div>
@@ -17,8 +17,8 @@
       <div hlmCardContent class="text-base leading-relaxed ">
         <p class="mb-4">{{post()?.body}}</p>
       </div>
-      <div hlmCardFooter class="flex items-center justify-between text-sm text-muted-foreground border-t pt-4">
-        <span><button class="p-1 hover:bg-blue-300  rounded transition-colors shrink-0"
+      <div hlmCardFooter class="flex items-center bg-blue-100  justify-center text-sm font-semibold text-muted-foreground border-t pt-4 cursor-pointer">
+        <span><button class="p-1 rounded transition-colors shrink-0 cursor-pointer"
           (click)="comments.emit(post()!); $event.stopPropagation()">Comments</button></span>
       </div>
     </section>

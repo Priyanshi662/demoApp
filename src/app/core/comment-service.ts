@@ -8,7 +8,7 @@ import { CommentError, CommentErrorType, CommentType } from '../shared/comments.
 })
 export class CommentService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'https://jsonplaceholder.typicode.com/posts';
+  private readonly baseUrl = 'https://jsonplaceholder.typicode.com/comments';
   /**
    * Fetches all posts for a specific user
    * @param userId - The user ID
