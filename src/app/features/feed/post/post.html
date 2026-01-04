@@ -33,10 +33,14 @@
       <div hlmCardContent class="text-base leading-relaxed ">
         <p class="mb-4">{{getPost()?.body}}</p>
       </div>
-      <div hlmCardFooter class="flex items-center bg-blue-100  justify-center text-sm font-semibold text-muted-foreground border-t pt-4 cursor-pointer">
+      <div>
+      
+      <div hlmCardFooter class="flex items-center bg-blue-100  justify-center text-sm font-semibold text-muted-foreground border-t pt-4 cursor-pointer" (click)="onComments(); $event.stopPropagation()">
         <span><button class="p-1 rounded transition-colors shrink-0 cursor-pointer"
-          (click)="onComments(); $event.stopPropagation()">Comments</button></span>
+          >Comments</button></span>
       </div>
+      </div>
+      
     </section>
   }
 </div>
