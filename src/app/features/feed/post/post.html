@@ -13,11 +13,10 @@
       <button (click)="goToFeed()" class="flex flex-row px-4 py-2 mb-4 cursor-pointer bg-blue-200 rounded">Back to Feed</button>
       
     }
-    <section class="w-full" hlmCard>
-      
-      <div hlmCardHeader class="flex items-start justify-between">
+    <mat-card class="w-full " style="border: 1px solid #000; border-radius: 5px">
+      <mat-card-header class="flex items-start justify-between">
         <div class="flex-1">
-          <h3 hlmCardTitle class="text-2xl">{{getPost()?.title}}</h3>
+          <h2 class="text-2xl mb-6">{{getPost()?.title}}</h2>
         </div>
         @if(!loadedPost())
         {<div class="flex gap-2 ml-4">
@@ -29,18 +28,14 @@
           </button>
         </div>
       }
-      </div>
-      <div hlmCardContent class="text-base leading-relaxed ">
-        <p class="mb-4">{{getPost()?.body}}</p>
-      </div>
-      <div>
-      
-      <div hlmCardFooter class="flex items-center bg-blue-100  justify-center text-sm font-semibold text-muted-foreground border-t pt-4 cursor-pointer" (click)="onComments(); $event.stopPropagation()">
+      </mat-card-header>
+      <mat-card-content class="text-base leading-relaxed mb-4">
+        <p >{{getPost()?.body}}</p>
+      </mat-card-content>
+      <mat-card-actions class="flex items-center bg-blue-100  justify-center text-sm font-semibold text-muted-foreground border-t pt-4 cursor-pointer" (click)="onComments(); $event.stopPropagation()">
         <span><button class="p-1 rounded transition-colors shrink-0 cursor-pointer"
           >Comments</button></span>
-      </div>
-      </div>
-      
-    </section>
+      </mat-card-actions>
+    </mat-card>
   }
 </div>

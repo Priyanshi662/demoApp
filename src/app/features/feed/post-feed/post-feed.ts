@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Post } from '../post/post';
-import { HlmCardImports } from '@spartan-ng/helm/card';
+import { MatCardModule } from '@angular/material/card';
 import { LucideAngularModule, Plus } from 'lucide-angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-feed',
-  imports: [Post, HlmCardImports, LucideAngularModule, ReactiveFormsModule, CommonModule],
+  imports: [Post, MatCardModule, LucideAngularModule, ReactiveFormsModule, CommonModule],
   templateUrl: './post-feed.html',
   styleUrl: './post-feed.css',
 })

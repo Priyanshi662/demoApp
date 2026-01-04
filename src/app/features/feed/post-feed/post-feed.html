@@ -9,12 +9,10 @@
   @if(!showForm())
  { 
   <div class="flex max-w-3xs mx-auto px-4 mb-8 justify-center bg-blue-100 hover:bg-blue-500 rounded transition-colors">
-  <div hlmCardFooter>
     <button class="p-1" aria-label="Add" (click)="onAdd()">
       <lucide-angular [img]="addIcon" class="w-5 h-5"></lucide-angular>
     </button>
   </div>
-</div>
   
   @if (isLoading()) {
     <div class="text-center mb-8">
@@ -42,11 +40,11 @@
 
 @if (showForm()) {
   <div class="max-w-xl mx-auto px-4 mb-8">
-    <section class="w-full" hlmCard>
-      <div hlmCardHeader>
-        <h3 hlmCardTitle>{{ editingPost() ? 'Edit Post' : 'Add New Post' }}</h3>
-      </div>
-      <div hlmCardContent>
+    <mat-card class="w-full">
+      <mat-card-header>
+        <mat-card-title>{{ editingPost() ? 'Edit Post' : 'Add New Post' }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
         @if (operationError()) {
           <p class="text-red-500 mb-4">{{operationError()}}</p>
         }
@@ -72,8 +70,8 @@
             <button type="button" (click)="cancelForm()" class="px-4 py-2 bg-red-500 hover:bg-red-400 text-white rounded">Cancel</button>
           </div>
         </form>
-      </div>
-    </section>
+      </mat-card-content>
+    </mat-card>
   </div>
 }
 

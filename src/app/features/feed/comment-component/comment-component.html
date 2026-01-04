@@ -19,11 +19,11 @@
 
   <!-- Add/Edit Comment Form -->
   @if (showForm()) {
-    <section class="w-full mb-6" hlmCard>
-      <div hlmCardHeader>
-        <h3 hlmCardTitle>{{ editingComment() ? 'Edit Comment' : 'Add New Comment' }}</h3>
-      </div>
-      <div hlmCardContent>
+    <mat-card class="w-full mb-6" style="border: 1px solid #000; border-radius: 5px">
+      <mat-card-header>
+        <mat-card-title>{{ editingComment() ? 'Edit Comment' : 'Add New Comment' }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
         @if (operationError()) {
           <p class="text-red-500 mb-4">{{operationError()}}</p>
         }
@@ -77,8 +77,8 @@
             </button>
           </div>
         </form>
-      </div>
-    </section>
+      </mat-card-content>
+    </mat-card>
   }
 
   <!-- Loading State -->
@@ -111,10 +111,10 @@
     } @else {
       <div class="space-y-4">
         @for (comment of comments(); track comment.id) {
-          <section class="w-full" hlmCard>
-            <div hlmCardHeader class="flex items-start justify-between">
+          <mat-card class="w-full" style="border: 1px solid #000; border-radius: 4px;">
+            <mat-card-header class="flex items-start justify-between">
               <div class="flex-1">
-                <h3 hlmCardTitle class="text-lg">{{comment.name}}</h3>
+                <mat-card-title class="text-lg">{{comment.name}}</mat-card-title>
                 <p class="text-sm text-gray-500 mt-1">{{comment.email}}</p>
               </div>
               <div class="flex gap-2 ml-4">
@@ -131,11 +131,11 @@
                   <lucide-angular [img]="deleteIcon" class="w-4 h-4"></lucide-angular>
                 </button>
               </div>
-            </div>
-            <div hlmCardContent>
+            </mat-card-header>
+            <mat-card-content>
               <p class="text-base leading-relaxed">{{comment.body}}</p>
-            </div>
-          </section>
+            </mat-card-content>
+          </mat-card>
         }
       </div>
     }

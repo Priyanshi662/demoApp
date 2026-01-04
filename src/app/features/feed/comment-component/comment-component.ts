@@ -2,14 +2,14 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HlmCardImports } from '@spartan-ng/helm/card';
+import { MatCardModule } from '@angular/material/card';
 import { LucideAngularModule, ArrowLeft, Plus, Pen, Trash2 } from 'lucide-angular';
 import { CommentService } from '../../../core/comment-service';
 import { CommentType } from '../../../shared/comments.model';
 
 @Component({
   selector: 'app-comment-component',
-  imports: [CommonModule, HlmCardImports, LucideAngularModule, ReactiveFormsModule],
+  imports: [CommonModule, MatCardModule, LucideAngularModule, ReactiveFormsModule],
   templateUrl: './comment-component.html',
   styleUrl: './comment-component.css',
 })

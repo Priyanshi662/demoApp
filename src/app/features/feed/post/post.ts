@@ -1,5 +1,5 @@
 import { Component, inject, input, output, OnInit, signal } from '@angular/core';
-import { HlmCardImports } from '@spartan-ng/helm/card';
+import { MatCardModule } from '@angular/material/card';
 import { LucideAngularModule, X, Pen} from 'lucide-angular';
 import { PostService } from '../../../core/post-service';
 import { PostType } from '../../../shared/post.model';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-post',
-  imports: [HlmCardImports,LucideAngularModule, CommonModule],
+  imports: [MatCardModule, LucideAngularModule, CommonModule],
   templateUrl: './post.html',
   styleUrl: './post.css',
 })
