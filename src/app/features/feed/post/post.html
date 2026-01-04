@@ -1,25 +1,41 @@
 <div class="max-w-xl mx-auto px-4 mb-8">
-  @if (post()) {
+  @if (isLoading()) {
+    <div class="text-center">
+      <p>Loading post...</p>
+    </div>
+  } @else if (error()) {
+    <div class="text-center">
+      <p class="text-red-500 mb-4">{{error()}}</p>
+      <button (click)="goToFeed()" class="px-4 py-2 bg-blue-500 rounded">Back to Feed</button>
+    </div>
+  } @else if (getPost()) {
+    @if (loadedPost()) {
+      <button (click)="goToFeed()" class="flex flex-row px-4 py-2 mb-4 cursor-pointer bg-blue-200 rounded">Back to Feed</button>
+      
+    }
     <section class="w-full" hlmCard>
+      
       <div hlmCardHeader class="flex items-start justify-between">
         <div class="flex-1">
-          <h3 hlmCardTitle class="text-2xl">{{post()?.title}}</h3>
+          <h3 hlmCardTitle class="text-2xl">{{getPost()?.title}}</h3>
         </div>
-        <div class="flex gap-2 ml-4">
-          <button class="p-1 hover:bg-blue-50  rounded transition-colors shrink-0 cursor-pointer" aria-label="Edit" (click)="edit.emit(post()!); $event.stopPropagation()">
+        @if(!loadedPost())
+        {<div class="flex gap-2 ml-4">
+          <button class="p-1 hover:bg-blue-50  rounded transition-colors shrink-0 cursor-pointer" aria-label="Edit" (click)="onEdit($event)">
             <lucide-angular [img]="editIcon" class="w-5 h-5"></lucide-angular>
           </button>
-          <button class="p-1 hover:bg-red-300  rounded transition-colors shrink-0 cursor-pointer" aria-label="Delete" (click)="delete.emit(post()!.id); $event.stopPropagation()">
+          <button class="p-1 hover:bg-red-300  rounded transition-colors shrink-0 cursor-pointer" aria-label="Delete" (click)="onDelete($event)">
             <lucide-angular [img]="cross" class="w-5 h-5"></lucide-angular>
           </button>
         </div>
+      }
       </div>
       <div hlmCardContent class="text-base leading-relaxed ">
-        <p class="mb-4">{{post()?.body}}</p>
+        <p class="mb-4">{{getPost()?.body}}</p>
       </div>
       <div hlmCardFooter class="flex items-center bg-blue-100  justify-center text-sm font-semibold text-muted-foreground border-t pt-4 cursor-pointer">
         <span><button class="p-1 rounded transition-colors shrink-0 cursor-pointer"
-          (click)="comments.emit(post()!); $event.stopPropagation()">Comments</button></span>
+          (click)="onComments(); $event.stopPropagation()">Comments</button></span>
       </div>
     </section>
   }

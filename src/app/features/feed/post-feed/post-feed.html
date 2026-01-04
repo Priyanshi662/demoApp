@@ -27,12 +27,14 @@
     </div>
   } @else {
     @for (post of posts(); track post.id) {
-      <app-post
-        [post]="post"
-        (edit)="onEdit($event)"
-        (delete)="onDelete($event)"
-        (comments)="onComments($event)">
-      </app-post>
+      <div (click)="onViewPost(post)" class="cursor-pointer hover:opacity-90 transition-opacity">
+        <app-post
+          [post]="post"
+          (edit)="onEdit($event)"
+          (delete)="onDelete($event)"
+          (comments)="onComments($event)">
+        </app-post>
+      </div>
     }
   }
 }
@@ -51,14 +53,20 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="mb-4">
             <label class="block text-sm font-medium mb-2">Title</label>
-            <input type="text" formControlName="title" class="w-full p-2 border rounded">
+            <input type="text" formControlName="title" class="w-full p-2 border rounded" [class.border-red-500]="form.get('title')?.invalid && form.get('title')?.touched">
+            @if (form.get('title')?.invalid && form.get('title')?.touched) {
+              <p class="text-red-500 text-sm mt-1">Title is required</p>
+            }
           </div>
           <div class="mb-4">
             <label class="block text-sm font-medium mb-2">Body</label>
-            <textarea formControlName="body" class="w-full p-2 border rounded" rows="4"></textarea>
+            <textarea formControlName="body" class="w-full p-2 border rounded" rows="4" [class.border-red-500]="form.get('body')?.invalid && form.get('body')?.touched"></textarea>
+            @if (form.get('body')?.invalid && form.get('body')?.touched) {
+              <p class="text-red-500 text-sm mt-1">Body is required</p>
+            }
           </div>
           <div class="flex gap-2">
-            <button type="submit" [disabled]="isSubmitting()" class="px-4 py-2 bg-blue-500 hover:bg-blue-400 text-white rounded disabled:opacity-50">
+            <button type="submit" [disabled]="isSubmitting() || form.invalid" class="px-4 py-2 bg-blue-500 hover:bg-blue-400 text-white rounded disabled:opacity-50">
               {{ isSubmitting() ? 'Saving...' : 'Save' }}
             </button>
             <button type="button" (click)="cancelForm()" class="px-4 py-2 bg-red-500 hover:bg-red-400 text-white rounded">Cancel</button>

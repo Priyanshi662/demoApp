@@ -20,6 +20,17 @@ export class PostService {
     );
   }
 
+  /**
+   * Fetches a single post by ID
+   * @param id - The post ID
+   * @returns Observable of the post
+   */
+  getPost(id: number): Observable<PostType> {
+    return this.http.get<PostType>(`${this.baseUrl}/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => throwError(() => this.handleError(error)))
+    );
+  }
+
   
   /**
    * Fetches all posts for a specific user

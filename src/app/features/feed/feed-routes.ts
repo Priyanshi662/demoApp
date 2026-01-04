@@ -16,6 +16,12 @@ export const FEED_ROUTES: Routes = [
     }
   },
   {
+    path: 'post/:id',
+    loadComponent: () => 
+      import('./post/post').then(m => m.Post),
+    title: 'Post Details | Marketing Insights'
+  },
+  {
     path: 'comments',
     loadComponent:()=>
       import('./comment-component/comment-component').then(m=>m.CommentComponent),

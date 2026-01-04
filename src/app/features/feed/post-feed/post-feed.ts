@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Post } from '../post/post';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { LucideAngularModule, Plus } from 'lucide-angular';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../../core/post-service';
 import { PostType } from '../../../shared/post.model';
@@ -31,8 +31,8 @@ addIcon = Plus;
 
   constructor() {
     this.form = this.fb.group({
-      title: [''],
-      body: ['']
+      title: ['', [Validators.required, Validators.minLength(1)]],
+      body: ['', [Validators.required, Validators.minLength(1)]]
     });
   }
 
@@ -86,6 +86,10 @@ addIcon = Plus;
     this.router.navigate(['/feed/comments'], { 
       queryParams: { postId: post.id } 
     });
+  }
+  
+  onViewPost(post: PostType): void {
+    this.router.navigate(['/feed/post', post.id]);
   }
 
   onSubmit(): void {
